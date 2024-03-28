@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title="Delete Task" icon-name="action:delete">
+        <div class="slds-m-around_medium">
+            <p>Are you sure you want to delete this task?</p>
+            <lightning-button label="Delete" variant="destructive" onclick={deleteTask} class="slds-m-top_medium"></lightning-button>
+            <lightning-button label="Cancel" variant="neutral" onclick={closeAction} class="slds-m-top_medium"></lightning-button>
+        </div>
+    </lightning-card>
+</template>
