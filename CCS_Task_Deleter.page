@@ -1,16 +1,7 @@
-<apex:page standardController="CCS_Task__c" recordSetVar="tasks">
-    <apex:includeLightning />
-    <div id="lwcContainer"></div>
-    <script>
-        $Lightning.use("c:app", function() {
-            $Lightning.createComponent("c:ccsTaskDeleter",
-            { recordId: "{!CCS_Task__c.Id}" },
-            "lwcContainer",
-            function(cmp) {
-                // Component initialization callback
-                console.log("LWC component was created");
-                // Implement any logic needed after component creation
-            });
-        });
-    </script>
+<apex:page id="TaskDelete" standardController="Task" extensions="TaskDeleteControllerExtension"
+    action="{!checkDeletePermission}">
+    <apex:pageMessages />
+    <apex:form>
+        <apex:commandButton value="Cancel" action="{!cancel}"/>
+    </apex:form>
 </apex:page>
