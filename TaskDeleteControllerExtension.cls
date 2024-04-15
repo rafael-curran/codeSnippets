@@ -1,4 +1,4 @@
-public class TaskDeleteControllerExtension {
+public without sharing class TaskDeleteControllerExtension {
     private final Task task;
     private ApexPages.StandardController stdController;
 
@@ -13,23 +13,22 @@ public class TaskDeleteControllerExtension {
             return null;
         }
 
-        return stdController.delete();
+        try {
+            delete this.task
+            // Redirect to the task list view after successful deletion
+            return new PageReference('/lightning/o/Task/list');
+        } catch (Exception e) {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Error deleting task: ' + e.getMessage()));
+            return null;
+        }
     }
 
     private boolean canDelete() {
-        // Checking for custom permission
+        // Check for custom permission
         if (!FeatureManagement.checkPermission('Task_Delete_Permission')) {
             return false;
         }
 
-        // Additional logic
-        if ($Profile.Name == 'System Administrator' || 
-            ISBLANK(task.WhatId) || 
-            LEFT(task.WhatId, 3) != '500' || 
-            task.Status != 'Completed') {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 }
